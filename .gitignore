@@ -1,0 +1,13 @@
+.codex/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Backend
+backend/target/
+backend/.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
