@@ -1,6 +1,7 @@
 package com.haibazo.bookreview.common;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -11,7 +12,10 @@ public class CorsConfig implements WebMvcConfigurer {
   private final List<String> allowedOrigins;
 
   public CorsConfig(@Value("${app.cors.allowed-origins}") String origins) {
-    this.allowedOrigins = List.of(origins.split(","));
+    this.allowedOrigins = List.of(origins.split(",")).stream()
+        .map(String::trim)
+        .filter(origin -> !origin.isEmpty())
+        .collect(Collectors.toList());
   }
 
   @Override

@@ -150,12 +150,15 @@ Notes:
 - do not set `PORT` manually on Render unless needed; Render provides it automatically
 - after deploy, copy your backend URL, for example `https://haibazo-api.onrender.com`
 
-## 4. Deploy Frontend React On Vercel
+## 4. Deploy Frontend React On Netlify
 
-Create a new Vercel project from the same GitHub repo with these settings:
+This repository includes [netlify.toml](netlify.toml), so Netlify can build the frontend directly from GitHub without using Netlify Drop.
 
-- Framework preset: `Vite`
-- Root directory: `frontend`
+Create a new Netlify project from the same GitHub repo, then keep the build settings from `netlify.toml`:
+
+- Base directory: `frontend`
+- Build command: `npm run build`
+- Publish directory: `dist`
 
 Set environment variable:
 
@@ -165,22 +168,22 @@ VITE_API_BASE_URL=https://YOUR-BACKEND-NAME.onrender.com
 
 Then deploy.
 
-After Vercel gives you a frontend URL like:
+After Netlify gives you a frontend URL like:
 
 ```text
-https://haibazo-book-review.vercel.app
+https://haibazo-book-review.netlify.app
 ```
 
 go back to Render and update:
 
 ```text
-APP_CORS_ALLOWED_ORIGINS=https://haibazo-book-review.vercel.app
+APP_CORS_ALLOWED_ORIGINS=https://haibazo-book-review.netlify.app
 ```
 
 If you want to support both production and local frontend, use:
 
 ```text
-APP_CORS_ALLOWED_ORIGINS=https://haibazo-book-review.vercel.app,http://localhost:5173,http://127.0.0.1:5173
+APP_CORS_ALLOWED_ORIGINS=https://haibazo-book-review.netlify.app,http://localhost:5173,http://127.0.0.1:5173
 ```
 
 ## 5. Verify After Deploy

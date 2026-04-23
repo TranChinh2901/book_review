@@ -56,7 +56,7 @@ export default function App() {
       setBooks(bookData);
       setReviews(reviewData);
     } catch (error) {
-      setLoadError("Could not connect to the Spring Boot API. Start the backend on port 8080.");
+      setLoadError(buildLoadError(error));
     } finally {
       setLoading(false);
     }
@@ -96,6 +96,12 @@ export default function App() {
       {modal && <RecordModal modal={modal} authors={authors} books={books} onClose={() => setModal(null)} onMutate={mutate} />}
     </div>
   );
+}
+
+function buildLoadError(error) {
+  const apiBase = import.meta.env.VITE_API_BASE_URL ?? "(empty)";
+  const details = error?.message ? ` Details: ${error.message}.` : "";
+  return `Could not load data from the backend. Check VITE_API_BASE_URL and APP_CORS_ALLOWED_ORIGINS. API base: ${apiBase}.${details}`;
 }
 
 function Hero() {
